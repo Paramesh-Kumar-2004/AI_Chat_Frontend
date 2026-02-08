@@ -98,7 +98,7 @@ const Chat = () => {
                 </div>
 
                 {/* INPUT AREA */}
-                <div className="flex gap-2 mt-4">
+                <div className="flex flex-wrap gap-2 mt-4">
                     <input
                         type="text"
                         value={message}

@@ -7,7 +7,7 @@ const baseURL = import.meta.env.DEV
     : "Not Set";
 
 
-export const API = axios.create({
+const API = axios.create({
     baseURL,
     // "http://localhost:2004/api/v1",
     // baseURL: "https://final-project-task-management-backend-1.onrender.com/api/v1",
@@ -24,3 +24,19 @@ API.interceptors.request.use((config) => {
 
     return config;
 });
+
+API.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            localStorage.removeItem('token');
+
+            const base = window.location.pathname;
+
+            window.location.href = `${base}#/login`;
+        }
+        return Promise.reject(error);
+    }
+);
+
+export { API }
