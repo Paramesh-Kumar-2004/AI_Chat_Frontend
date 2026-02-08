@@ -4,7 +4,7 @@ import axios from "axios";
 
 const baseURL = import.meta.env.DEV
     ? "http://localhost:2004/api/v1"
-    : "https://final-project-task-management-backend-1.onrender.com/api/v1";
+    : "Not Set";
 
 
 export const API = axios.create({

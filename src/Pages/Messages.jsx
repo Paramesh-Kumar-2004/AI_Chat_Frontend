@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import Loader from '../Components/Loader'
 import Sidebar from '../Components/Sidebar'
@@ -10,12 +10,19 @@ const Chat = () => {
 
     const navigate = useNavigate()
     const { isLoading, setIsLoading, refetch, setRefetch } = useContext(Store)
+    const bottomRef = useRef(null)
+
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
 
     useEffect(() => {
         fetchMessages()
-    }, [])
+    }, [refetch])
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, [messages])
+
 
     const fetchMessages = async () => {
         try {
@@ -65,7 +72,7 @@ const Chat = () => {
                 </button> */}
 
                 {/* CHAT AREA */}
-                <div className="bg-[#0f4c7546] border-2 border-[#3282B8] rounded-xl p-4 h-[65vh] overflow-y-auto space-y-4">
+                <div className="bg-[#0f4c7546] border-2 border-[#3282B8] rounded-xl p-4 h-[65vh] overflow-y-auto space-y-4 [scrollbar-width:none]">
 
                     {isLoading && messages.length === 0 ? (
                         <Loader />
@@ -73,8 +80,9 @@ const Chat = () => {
                         messages.map((msg, index) => (
                             <div
                                 key={index}
+                                ref={index === messages.length - 1 ? bottomRef : null}
                                 className={`max-w-[80%] px-4 py-2 rounded-lg text-sm
-                  ${msg.role === "user"
+                                    ${msg.role === "user"
                                         ? "ml-auto bg-sky-600 text-white"
                                         : "mr-auto bg-[#1b262c] border border-sky-500"
                                     }`}
@@ -101,9 +109,10 @@ const Chat = () => {
 
                     <button
                         onClick={sendMessage}
+                        disabled={isLoading}
                         className="px-6 py-2 bg-sky-500 hover:bg-sky-600 rounded-md font-semibold transition cursor-pointer"
                     >
-                        Send
+                        {!isLoading ? "Send" : "Sending..."}
                     </button>
                 </div>
 
