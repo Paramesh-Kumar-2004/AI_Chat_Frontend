@@ -4,13 +4,13 @@ import axios from "axios";
 
 const baseURL = import.meta.env.DEV
     ? "http://localhost:2004/api/v1"
-    : "Not Set";
+    : "https://ai-chat-backend-rouge.vercel.app/";
 
 
 const API = axios.create({
-    baseURL,
+    // baseURL,
     // "http://localhost:2004/api/v1",
-    // baseURL: "https://final-project-task-management-backend-1.onrender.com/api/v1",
+    baseURL: "https://ai-chat-backend-rouge.vercel.app/api/v1",
     withCredentials: true
 });
 
