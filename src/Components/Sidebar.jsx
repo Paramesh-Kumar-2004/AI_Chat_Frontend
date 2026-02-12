@@ -1,25 +1,37 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { Store } from './Context/Store'
+import { API } from '../API/api'
 
 
 
 const Sidebar = () => {
 
     const navigate = useNavigate()
+    const { isLoading, setIsLoading, refetch, setRefetch } = useContext(Store)
     const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth") || false)
 
-    const [chats, setChats] = useState([
-        { chatName: "1" }, { chatName: "2" }, { chatName: "3" },
-        { chatName: "4" }, { chatName: "5" }, { chatName: "6" },
-        { chatName: "7" }, { chatName: "8" }, { chatName: "9" },
-        { chatName: "10" }, { chatName: "11" }, { chatName: "12" },
-        { chatName: "13" }, { chatName: "14" }, { chatName: "14" },
-        { chatName: "15" }, { chatName: "16" }, { chatName: "17" },
-        { chatName: "18" }, { chatName: "19" }, { chatName: "20" },
-        { chatName: "21" }, { chatName: "22" }, { chatName: "23" },
-        { chatName: "24" },
-    ])
+    const [chats, setChats] = useState([])
+
+    useEffect(() => {
+        fetchChats()
+    }, [])
+
+    const fetchChats = async () => {
+        try {
+            setIsLoading(true)
+            const res = await API.get("/chat")
+
+            setChats(res.data.chats)
+            setRefetch(!refetch)
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message)
+        } finally {
+            setIsLoading(false)
+            setRefetch(!refetch)
+        }
+    }
 
     const HandleLogout = async () => {
         try {
@@ -40,18 +52,17 @@ const Sidebar = () => {
                 {/* <img src={testIMG} alt="img" width={50} /> */}
                 <h1
                     className='text-center cursor-pointer text-xl font-bold hover:scale-110 duration-300 transition-all py-6'
-                    onClick={() => navigate("/")}
                 >
                     New Chat
                 </h1>
             </div>
 
-            {chats.map((item, index) => {
+            {chats.map((item) => {
                 return (
                     <div
-                        key={index}
+                        key={item._id}
                         className='font-semibold text-lg p-2 hover:scale-110 duration-300 transition-all cursor-pointer'
-                        onClick={() => navigate(`/${index}`)}
+                        onClick={() => navigate(`/message/${item._id}`)}
                     >
                         {item.chatName}
                     </div>

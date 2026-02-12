@@ -10,6 +10,7 @@ const ContextProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [refetch, setRefetch] = useState(false)
     const [users, setUsers] = useState([])
+    const [openCreateModal, setOpenCreateModal] = useState(false)
 
     const [search, setSearch] = useState("");
     const [paginate, setPaginate] = useState(1);
@@ -20,6 +21,7 @@ const ContextProvider = ({ children }) => {
             isLoading, setIsLoading,
             refetch, setRefetch,
             users, setUsers,
+            openCreateModal, setOpenCreateModal,
             search, setSearch,
             paginate, setPaginate,
             page, setPage

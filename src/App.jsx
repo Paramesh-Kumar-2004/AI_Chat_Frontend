@@ -10,6 +10,7 @@ import ResetPassword from './Pages/Auth/ResetPassword'
 import NotFound from './Pages/NotFound'
 import Settings from './Pages/Settings'
 import Messages from './Pages/Messages'
+import Dashboard from './Pages/Dashboard'
 
 
 
@@ -31,7 +32,8 @@ const App = () => {
             <Route path='/login' element={<Login />} />
             <Route path='/forgetpassword' element={<ForgetPassword />} />
             <Route path='/resetpassword/:id/:token' element={<ResetPassword />} />
-            <Route path='/' element={<Messages />} />
+            <Route path='/message/:chatId' element={<Messages />} />
+            <Route path='/' element={<Dashboard />} />
 
             <Route path='*' element={<NotFound />} />
 

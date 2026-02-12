@@ -4,16 +4,22 @@ import Loader from '../Components/Loader'
 import Sidebar from '../Components/Sidebar'
 import { Store } from '../Components/Context/Store'
 import { API } from '../API/api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const Chat = () => {
+
+
+const Message = () => {
 
     const navigate = useNavigate()
     const { isLoading, setIsLoading, refetch, setRefetch } = useContext(Store)
     const bottomRef = useRef(null)
 
+    const { chatId } = useParams()
+
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
+    const [messageSending, setMessageSending] = useState(false)
+    const [title, setTitle] = useState("")
 
     useEffect(() => {
         fetchMessages()
@@ -27,10 +33,12 @@ const Chat = () => {
     const fetchMessages = async () => {
         try {
             setIsLoading(true)
-            const res = await API.get("/chat")
-            setMessages(res.data.chats[0]?.messages || [])
+            const res = await API.get(`/chat/${chatId}`)
+            setTitle(res.data.chat.chatName)
+            setMessages(res.data.chat.messages)
         } catch (error) {
-            toast.error(error.response?.data?.message || error.message)
+            console.log(error)
+            // toast.error(error.response?.data?.message || error.message)
         } finally {
             setIsLoading(false)
         }
@@ -40,16 +48,16 @@ const Chat = () => {
         if (!message.trim()) return
 
         try {
-            setIsLoading(true)
-            const res = await API.post("/chat/send", { message })
+            setMessageSending(true)
+            const res = await API.post(`/chat/send/${chatId}`, { message })
 
             setMessages(res.data)
             setMessage("")
             setRefetch(!refetch)
         } catch (error) {
-            toast.error(error.response?.data?.message || error.message)
+            // toast.error(error.response?.data?.message || error.message)
         } finally {
-            setIsLoading(false)
+            setMessageSending(false)
             setRefetch(!refetch)
         }
     }
@@ -61,8 +69,18 @@ const Chat = () => {
             <div className="bg-[#1B262C] text-white min-h-screen w-full pt-20 md:pt-6 px-4">
 
                 <h1 className="text-sky-400 font-bold text-3xl text-center mb-6">
-                    AI Chat
+                    {title}
                 </h1>
+
+                <div className='flex justify-end-safe pb-2'>
+                    <button
+                        type="submit"
+                        className="px-4 py-2 bg-blue-600 text-white rounded-md disabled:opacity-60 cursor-pointer hover:bg-sky-800"
+                        onClick={() => navigate("/")}
+                    >
+                        Back
+                    </button>
+                </div>
 
                 {/* <button
                     onClick={() => navigate("/login")}
@@ -92,7 +110,7 @@ const Chat = () => {
                         ))
                     ) : (
                         <p className="text-center text-sky-500 font-semibold">
-                            Start a conversation 🚀
+                            Start a conversation
                         </p>
                     )}
                 </div>
@@ -109,10 +127,10 @@ const Chat = () => {
 
                     <button
                         onClick={sendMessage}
-                        disabled={isLoading}
+                        disabled={messageSending}
                         className="px-6 py-2 bg-sky-500 hover:bg-sky-600 rounded-md font-semibold transition cursor-pointer"
                     >
-                        {!isLoading ? "Send" : "Sending..."}
+                        {!messageSending ? "Send" : "Sending..."}
                     </button>
                 </div>
 
@@ -121,4 +139,4 @@ const Chat = () => {
     )
 }
 
-export default Chat
+export default Message
