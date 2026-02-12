@@ -78,7 +78,7 @@ const Message = () => {
                         className="px-4 py-2 bg-blue-600 text-white rounded-md disabled:opacity-60 cursor-pointer hover:bg-sky-800"
                         onClick={() => navigate("/")}
                     >
-                        Back
+                        Home
                     </button>
                 </div>
 
@@ -130,7 +130,7 @@ const Message = () => {
                         disabled={messageSending}
                         className="px-6 py-2 bg-sky-500 hover:bg-sky-600 rounded-md font-semibold transition cursor-pointer"
                     >
-                        {!messageSending ? "Send" : "Sending..."}
+                        {!messageSending ? "Send" : "Loading Result..."}
                     </button>
                 </div>
 

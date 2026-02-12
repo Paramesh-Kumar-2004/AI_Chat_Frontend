@@ -5,10 +5,10 @@ import { API } from "../API/api";
 
 
 
-const ChatCreateModal = ({ onClose }) => {
+const EditChatName = ({ chatId, title, onClose }) => {
 
     const { refetch, setRefetch } = useContext(Store)
-    const [chatName, setChatName] = useState("");
+    const [chatName, setChatName] = useState(`${title}`);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (e) => {
@@ -24,16 +24,14 @@ const ChatCreateModal = ({ onClose }) => {
 
         try {
             setIsSubmitting(true);
-            const response = await API.post(
-                `/chat/create`, { chatName: chatName }
-            );
+            const response = await API.patch(`/chat/${chatId}`, { chatName });
 
             toast(response.data.message, {
                 position: "top-center",
                 autoClose: 2000
             });
             setRefetch(prev => !prev);
-            setChatName("");
+            // setChatName("");
             onClose();
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to add chatName", {
@@ -50,7 +48,7 @@ const ChatCreateModal = ({ onClose }) => {
             <div className="bg-[#06344d] w-md rounded-xl border-2 border-sky-500 p-6">
 
                 <h2 className="text-white text-xl font-semibold text-center mb-4">
-                    Create Chat
+                    Update Chat Name
                 </h2>
 
                 <form onSubmit={handleSubmit}>
@@ -75,7 +73,7 @@ const ChatCreateModal = ({ onClose }) => {
                             disabled={isSubmitting}
                             className="px-4 py-2 bg-sky-600 text-white rounded-md disabled:opacity-60 cursor-pointer"
                         >
-                            {isSubmitting ? "Adding..." : "Add"}
+                            {isSubmitting ? "Updating..." : "Update"}
                         </button>
                     </div>
                 </form>
@@ -84,4 +82,4 @@ const ChatCreateModal = ({ onClose }) => {
     );
 };
 
-export default ChatCreateModal;
+export default EditChatName;

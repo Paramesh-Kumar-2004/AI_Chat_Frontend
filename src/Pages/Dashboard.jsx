@@ -8,6 +8,7 @@ import { Store } from '../Components/Context/Store'
 import Loader from '../Components/Loader'
 import { API } from '../API/api'
 import ChatCreateModal from '../Components/ChatCreateModal'
+import EditChatName from '../Components/EditChatName'
 
 
 
@@ -16,6 +17,9 @@ const Dashboard = () => {
     const navigate = useNavigate()
     const { isLoading, setIsLoading, refetch, setRefetch, openCreateModal, setOpenCreateModal } = useContext(Store)
     const [chats, setChats] = useState([])
+    const [changeNameModal, setChangeNameModal] = useState(false)
+    const [chatName, setChatName] = useState("")
+    const [chatId, setChatId] = useState()
 
     useEffect(() => {
         fetchChats()
@@ -57,6 +61,12 @@ const Dashboard = () => {
         }
     }
 
+    const HandleChangeName = async (item) => {
+        setChatName(item.chatName)
+        setChatId(item._id)
+        setChangeNameModal(true)
+    }
+
     // if (isLoading) {
     //     return (
     //         <Loader />
@@ -88,7 +98,7 @@ const Dashboard = () => {
                         <thead className="bg-[#0f4c7546] border-2 border-[#3282B8] rounded-2xl w-full p-6 text-start transition-transform text-emerald-300 text-lg">
                             <tr>
                                 <th className="p-4">Chat Name</th>
-                                <th className="p-4" colSpan={2}>Action</th>
+                                <th className="p-4" colSpan={3}>Actions</th>
                             </tr>
                         </thead>
                         <tbody className="text-white text-base">
@@ -108,6 +118,15 @@ const Dashboard = () => {
                                                     onClick={() => navigate(`/message/${item._id}`)}
                                                 >
                                                     Continue Chat
+                                                </button>
+                                            </td>
+
+                                            <td className="p-3">
+                                                <button
+                                                    className="px-4 py-1.5 font-semibold rounded-md transition-colors duration-300 cursor-pointer text-green-500 hover:bg-green-800 hover:text-white"
+                                                    onClick={() => HandleChangeName(item)}
+                                                >
+                                                    Change Name
                                                 </button>
                                             </td>
 
@@ -144,6 +163,14 @@ const Dashboard = () => {
                     {openCreateModal && (
                         <ChatCreateModal
                             onClose={() => setOpenCreateModal(false)}
+                        />
+                    )}
+
+                    {changeNameModal && (
+                        <EditChatName
+                            chatId={chatId}
+                            title={chatName}
+                            onClose={() => setChangeNameModal(false)}
                         />
                     )}
 
