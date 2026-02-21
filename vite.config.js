@@ -8,6 +8,6 @@ export default defineConfig(({ command }) => ({
     react(),
     tailwindcss()
   ],
-  base: '/AI_Chat_Frontend/',
+  // base: '/AI_Chat_Frontend/',
 }))
 
