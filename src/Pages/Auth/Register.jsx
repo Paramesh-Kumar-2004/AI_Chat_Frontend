@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router'
 import Car3 from "../../assets/Car_Images_3.jpg"
 import { API } from '../../API/api'
+import ParticlesBackground from '../../Components/ParticlesBackground'
 
 
 
@@ -47,15 +48,15 @@ const Register = () => {
         }
     }
 
-
     return (
         <div className="relative w-full h-screen flex items-center justify-center overflow-hidden">
 
-            <img
+            {/* <img
                 src={Car3}
                 alt="background"
                 className="absolute inset-0 w-full h-full object-cover"
-            />
+            /> */}
+            <ParticlesBackground />
 
             <div className="relative z-10 w-full max-w-md bg-black/30 border-2 border-[rgb(181,174,166)] shadow-[0_0_10px_rgba(0,0,0,0.8)] rounded-lg p-6 text-center">
 

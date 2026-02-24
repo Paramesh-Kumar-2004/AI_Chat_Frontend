@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { toast } from 'react-toastify';
 import Car2 from "../../assets/Car_Images_2.jpg"
 import { API } from '../../API/api';
+import ParticlesBackground from '../../Components/ParticlesBackground';
 
 
 
@@ -38,11 +39,12 @@ const ForgetPassword = () => {
     return (
         <div className="relative w-full h-screen flex items-center justify-center overflow-hidden">
 
-            <img
+            {/* <img
                 src={Car2}
                 alt="bg"
                 className="absolute inset-0 w-full h-full object-cover"
-            />
+            /> */}
+            <ParticlesBackground/>
 
             <div className="absolute inset-0 bg-black/10"></div>
 

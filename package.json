@@ -17,6 +17,8 @@
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.6",
     "@tailwindcss/vite": "^4.1.17",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.9.1",
     "axios": "^1.13.2",
     "change-case": "^5.4.4",
     "chart.js": "^4.5.1",

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import Car1 from "../../assets/Car_Images_1.jpg"
 import { API } from "../../API/api"
 import { Store } from '../../Components/Context/Store'
+import ParticlesBackground from '../../Components/ParticlesBackground'
 
 
 
@@ -59,11 +60,12 @@ const Login = () => {
 
         <div className="relative w-full h-screen flex items-center justify-center overflow-hidden">
 
-            <img
+            {/* <img
                 src={Car1}
                 alt="bg"
                 className="absolute inset-0 w-full h-full object-cover"
-            />
+            /> */}
+            <ParticlesBackground />
 
             <div className="absolute inset-0 bg-black/10"></div>
 
