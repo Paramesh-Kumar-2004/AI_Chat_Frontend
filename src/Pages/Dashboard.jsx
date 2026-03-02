@@ -84,13 +84,19 @@ const Dashboard = () => {
                         <h1 className='text-sky-400 font-bold text-3xl text-center'>My Chats</h1>
                     </div>
 
-                    <div className='flex justify-end-safe pb-2'>
+                    <div className='flex justify-end-safe pb-2 gap-2'>
                         <button
                             type="submit"
                             className="px-4 py-2 bg-sky-600 text-white rounded-md disabled:opacity-60 cursor-pointer hover:bg-sky-800"
                             onClick={() => setOpenCreateModal(true)}
                         >
                             Create New Chat
+                        </button>
+                        <button
+                            onClick={() => navigate("/login")}
+                            className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-md font-semibold transition cursor-pointer"
+                        >
+                            Logout
                         </button>
                     </div>
 

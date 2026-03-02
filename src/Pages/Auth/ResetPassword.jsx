@@ -23,7 +23,7 @@ const ResetPassword = () => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const response = await API.put(`/auth/resetpassword/${id}/${token}`, resetPassword);
+            const response = await API.put(`/auth/reset-password/${token}`, { password: resetPassword });
 
             toast.success(response.data.message, {
                 position: "top-center",

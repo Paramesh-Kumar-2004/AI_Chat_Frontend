@@ -82,13 +82,6 @@ const Message = () => {
                     </button>
                 </div>
 
-                {/* <button
-                    onClick={() => navigate("/login")}
-                    className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-md font-semibold transition cursor-pointer"
-                >
-                    Logout
-                </button> */}
-
                 {/* CHAT AREA */}
                 <div className="bg-[#0f4c7546] border-2 border-[#3282B8] rounded-xl p-4 h-[65vh] overflow-y-auto space-y-4 [scrollbar-width:none]">
 
