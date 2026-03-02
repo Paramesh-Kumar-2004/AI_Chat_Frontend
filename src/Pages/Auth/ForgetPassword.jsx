@@ -16,7 +16,7 @@ const ForgetPassword = () => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const response = await API.post("/auth/forgetpassword", { email });
+            const response = await API.post("/auth/forgot-password", { email });
             toast.success("Password reset link sent to your email!", {
                 position: "top-center",
                 autoClose: 2000,
@@ -44,7 +44,7 @@ const ForgetPassword = () => {
                 alt="bg"
                 className="absolute inset-0 w-full h-full object-cover"
             /> */}
-            <ParticlesBackground/>
+            <ParticlesBackground />
 
             <div className="absolute inset-0 bg-black/10"></div>
 
